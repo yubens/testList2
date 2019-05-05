@@ -112,8 +112,9 @@ public class AdapterListView extends ArrayAdapter<ObjectPeople> {
         });*/
 
 
-        holder.edName.addTextChangedListener(new TextWatcher() {
+        TextWatcher watcher = new TextWatcher() {
             double total, cantidad;
+
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -121,20 +122,33 @@ public class AdapterListView extends ArrayAdapter<ObjectPeople> {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                /*System.out.println("id " + holder.edName.getId());
+                System.out.println("char " + s);
+                System.out.println("start " + start);
+                System.out.println("before " + before);
+                System.out.println("count " + count);
 
-                if(s.length() > 0){
-
-                    if(Double.valueOf(s.toString()).isNaN() ){
-                        System.out.println("error de entrada");
-                    }
-                    else {
-                        cantidad = Double.valueOf(s.toString());
-                        total = cantidad * arrayPeople.get(position).getTotal();
-                        //arrayPeople.get(position).setName(String.valueOf(cantidad));
-                    }
-
+                if(start == before){
+                    //mada
+                    System.out.println("nada");
                 }
+                else {
+                    if(s.length() > 0){
+                        System.out.println("cambiando");
+                        if(Double.valueOf(s.toString()).isNaN() ){
+                            System.out.println("error de entrada");
+                        }
+                        else {
+                            //holder.edName.removeTextChangedListener(this);
+                            cantidad = Double.valueOf(s.toString());
+                            total = cantidad * arrayPeople.get(position).getTotal();
+                            arrayPeople.get(position).setName(String.valueOf(cantidad));
+                            holder.vTotal.setText(String.valueOf(total));
+                            //holder.edName.addTextChangedListener(this);
+                        }
 
+                    }
+                }*/
 
 
             }
@@ -142,11 +156,25 @@ public class AdapterListView extends ArrayAdapter<ObjectPeople> {
             @Override
             public void afterTextChanged(Editable editable) {
                 System.out.println("despues");
+                System.out.println("editable " + editable.toString());
+                System.out.println("id " + holder.edName.getId());
+
+                if(editable == holder.edName.getEditableText()){
+                    System.out.println("iguales");
+                }
+                else{
+                    System.out.println("distintos");
+                }
+                //holder.edName.setSelection(editable.length());
+                /*
                 System.out.println(editable.toString());
                 arrayPeople.get(position).setName(String.valueOf(cantidad));
-                holder.vTotal.setText(String.valueOf(total));
+                holder.vTotal.setText(String.valueOf(total));*/
+
             }
-        });
+        };
+
+        holder.edName.addTextChangedListener(watcher);
 
         return convertView;
 

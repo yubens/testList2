@@ -11,7 +11,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     ListView lvPeople;
-    AdapterListView adapter;
+    AdapterListView2 adapter;
     Button button;
     List <ObjectPeople> chequeadas;
     ArrayList<ObjectPeople> arrPeople;
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
             person.setShowName(false);
             arrPeople.add(person);
         }
-        adapter=new AdapterListView(this,R.layout.item_listview,arrPeople);
+        adapter=new AdapterListView2(this, arrPeople);
         lvPeople.setAdapter(adapter);
 
         button.setOnClickListener(new View.OnClickListener() {
