@@ -1,6 +1,8 @@
 package org.example.testlist;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +40,7 @@ public class AdapterListView extends ArrayAdapter<ObjectPeople> {
 
     public View getView(final int position, View convertView, ViewGroup parent) {
 
+
         final ViewHolder holder;
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.item_listview, null);
@@ -45,16 +48,19 @@ public class AdapterListView extends ArrayAdapter<ObjectPeople> {
             holder.tvPosition = (TextView) convertView.findViewById(R.id.tvPosition);
             holder.edName = (EditText) convertView.findViewById(R.id.edName);
             holder.cbShowName = (CheckBox) convertView.findViewById(R.id.cbShowName);
-            holder.vPrecio = convertView.findViewById(R.id.textTotal);
+            holder.vPrecio = convertView.findViewById(R.id.textPrecio);
+            holder.vTotal = convertView.findViewById(R.id.textTotal);
+
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
         final ObjectPeople person = arrayPeople.get(position);
-        holder.tvPosition.setText("Item " + position);
+        holder.tvPosition.setText("Item " + (position + 1));
         holder.cbShowName.setChecked(person.isShowName());
-        holder.vPrecio.setText(String.valueOf(Integer.parseInt(person.getName()) * 2));
+        holder.vPrecio.setText(String.valueOf(person.getTotal()));
+        holder.vTotal.setText(String.valueOf(Double.valueOf(person.getName()) * person.getTotal()));
 
         holder.edName.setEnabled(person.isShowName());
 
@@ -88,18 +94,58 @@ public class AdapterListView extends ArrayAdapter<ObjectPeople> {
         holder.edName.setId(position);
 
 //we need to update adapter once we finish with editing
-        holder.edName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        /*holder.edName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
             public void onFocusChange(View v, boolean hasFocus) {
+                double cantidad, total;
 
                 if (!hasFocus) {
                     final int position = v.getId();
                     final EditText Caption = (EditText) v;
-                    arrayPeople.get(position).setName(Caption.getText().toString());
+                    cantidad = Double.valueOf(Caption.getText().toString());
+                    total = cantidad * arrayPeople.get(position).getTotal();
+                    arrayPeople.get(position).setName(String.valueOf(cantidad));
+                    holder.vTotal.setText(String.valueOf(total));
                 }
+            }
+
+        });*/
+
+
+        holder.edName.addTextChangedListener(new TextWatcher() {
+            double total, cantidad;
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if(s.length() > 0){
+
+                    if(Double.valueOf(s.toString()).isNaN() ){
+                        System.out.println("error de entrada");
+                    }
+                    else {
+                        cantidad = Double.valueOf(s.toString());
+                        total = cantidad * arrayPeople.get(position).getTotal();
+                        //arrayPeople.get(position).setName(String.valueOf(cantidad));
+                    }
+
+                }
+
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                System.out.println("despues");
+                System.out.println(editable.toString());
+                arrayPeople.get(position).setName(String.valueOf(cantidad));
+                holder.vTotal.setText(String.valueOf(total));
+            }
         });
 
         return convertView;
@@ -117,6 +163,7 @@ public class AdapterListView extends ArrayAdapter<ObjectPeople> {
     static class ViewHolder {
         TextView tvPosition;
         TextView vPrecio;
+        TextView vTotal;
         EditText edName;
         CheckBox cbShowName;
     }

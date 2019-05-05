@@ -28,7 +28,8 @@ public class MainActivity extends AppCompatActivity {
         for (int i=1; i<=20; i++){
             person=new ObjectPeople();
             person.setName(String.valueOf(i));
-            person.setTotal((i * i));
+            double ran = Math.random() * i + 1;
+            person.setTotal((double) Math.round(ran * 100d) / 100d);
             person.setShowName(false);
             arrPeople.add(person);
         }
