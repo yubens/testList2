@@ -133,7 +133,7 @@ public class AdapterListView2 extends ArrayAdapter<ObjectPeople> {
                     System.out.println("but " + compoundButton.isChecked());
                     ObjectPeople people = (ObjectPeople) viewHolder.cbShowName.getTag();
                     people.setShowName(compoundButton.isChecked());
-                    viewHolder.edName.setEnabled(lista.get(position).isShowName() );
+                    viewHolder.edName.setEnabled(compoundButton.isChecked() );
                 }
             });
 
