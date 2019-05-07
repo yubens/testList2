@@ -1,37 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/artDevolver"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+    tools:layout_editor_absoluteY="81dp">
+
 
     <TextView
         android:id="@+id/tvPosition"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="47dp"
+        app:layout_constraintEnd_toStartOf="@+id/edName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/edName"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content" />
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="238dp"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cbShowName"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textPrecio"
-        android:layout_width="131dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:text="Precio" />
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="12dp"
+        android:text="Precio"
+        app:layout_constraintStart_toEndOf="@+id/edName"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textTotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="12dp"
         android:layout_weight="1"
-        android:text="Total" />
+        android:text="Total"
+        app:layout_constraintStart_toEndOf="@+id/textPrecio"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <CheckBox
         android:id="@+id/cbShowName"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="52dp"
+        app:layout_constraintEnd_toStartOf="@+id/edName"
+        app:layout_constraintHorizontal_bias="0.307"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvPosition" />
+
+    <TextView
+        android:id="@+id/textCant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="36dp"
+        android:text="cantidad"
+        app:layout_constraintEnd_toEndOf="@+id/edName"
+        app:layout_constraintTop_toBottomOf="@+id/edName" />
+</android.support.constraint.ConstraintLayout>
 
 
-</LinearLayout>
+
+

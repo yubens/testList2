@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     Button button;
     List <ObjectPeople> chequeadas;
     ArrayList<ObjectPeople> arrPeople;
+    ArrayList<Integer> originales;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
         button = findViewById(R.id.button);
         ObjectPeople person;
         arrPeople = new ArrayList<>();
+        originales = new ArrayList<>();
+
 
         for (int i=1; i<=20; i++){
             person=new ObjectPeople();
@@ -32,8 +35,10 @@ public class MainActivity extends AppCompatActivity {
             person.setTotal((double) Math.round(ran * 100d) / 100d);
             person.setShowName(false);
             arrPeople.add(person);
+            originales.add(Integer.valueOf(person.getName()));
+
         }
-        adapter=new AdapterListView2(this, arrPeople);
+        adapter=new AdapterListView2(this, arrPeople, originales);
         lvPeople.setAdapter(adapter);
 
         button.setOnClickListener(new View.OnClickListener() {
